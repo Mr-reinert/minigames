@@ -44,6 +44,16 @@ const player = new Fighter({
     offset: {
         x: 215,
         y: 155
+    },
+    sprites:{
+        idle: {
+            imageSrc: './img/Sprites/idle.png',
+            framesMax: 8
+        },
+        run: {
+            imageSrc: './img/Sprites/Run.png',
+            framesMax: 8
+        }
     }
 })
 
@@ -97,10 +107,13 @@ function animate() {
     enemy.velocity.x = 0
     
 // o movimento maluco do player
+    player.image = player.sprites.idle.image
     if(keys.a.pressed && player.lastKey === 'a') {
         player.velocity.x = -5
+        player.image = player.sprites.run.image
     } else if(keys.d.pressed && player.lastKey === 'd') {
         player.velocity.x = 5
+        player.image = player.sprites.run.image
     }
 
 // o movimento maluco do inimigo
