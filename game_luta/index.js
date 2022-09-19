@@ -17,7 +17,7 @@ const background = new Sprite({
 })
 const shop = new Sprite({
     position: {
-        x: 500,
+        x: 700,
         y: 110
     },
     imageSrc: './img/shop_anim.png',
@@ -53,6 +53,14 @@ const player = new Fighter({
         run: {
             imageSrc: './img/Sprites/Run.png',
             framesMax: 8
+        },
+        jump: {
+            imageSrc: './img/Sprites/Jump.png',
+            framesMax: 2
+        },
+        fall: {
+            imageSrc: './img/Sprites/Fall.png',
+            framesMax: 2
         }
     }
 })
@@ -107,13 +115,21 @@ function animate() {
     enemy.velocity.x = 0
     
 // o movimento maluco do player
-    player.image = player.sprites.idle.image
+    
     if(keys.a.pressed && player.lastKey === 'a') {
         player.velocity.x = -5
-        player.image = player.sprites.run.image
+        player.switchSprite('run')
     } else if(keys.d.pressed && player.lastKey === 'd') {
         player.velocity.x = 5
-        player.image = player.sprites.run.image
+        player.switchSprite('run')
+    } else {
+        player.switchSprite('idle')
+    }
+// pulandoooo
+    if (player.velocity.y < 0) {
+        player.switchSprite('run')
+    }else if (player.velocity.y> 0) {
+        player.switchSprite('fall')
     }
 
 // o movimento maluco do inimigo
